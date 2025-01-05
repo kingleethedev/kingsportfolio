@@ -54,7 +54,7 @@ function closemenu(){
 }
 
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbx7XVsOTVtMiYDpRIN_te4lhY2goWBptvXnBRr9Can_6I2-hAsce9UJ7SCp81sCmunMuw/exec' // add your own app script link here
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzXpMuhH0HdVhPMMX3QEPO8UIlGF2eX7mVhcNSc7oaTRztWVk6mh5qrlBudQ-jN4XN9/exec' // add your own app script link here
 const form = document.forms['submit-to-google-sheet']
 const msg = document.getElementById("msg")
 
