@@ -151,16 +151,61 @@
                     <a href="images/my cv.pdf" download class="btn btn2">Download CV</a>
                 </div>
                 <div class="contact-right">
-                    <form name="submit-to-google-sheet">
-                        <input type="text" name="Name" placeholder="Your Name" required>
-                        <input type="email" name="Email" placeholder="Your Email" required>
-                        <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
-                        <button type="submit" class="btn btn2">Submit</button>
+                      <form id="contact-form">
+                        <label for="email">
+                            <input class="email-input" type="email" name="email" placeholder="Enter Your Email" required>
+                        </label>
+                        <label for="topic">
+                            <input class="topic-input" type="text" name="topic" placeholder="Enter The Topic" required>
+                        </label>
+                        <label for="message">
+                            <textarea class="message-input" name="message" cols="30" rows="10" placeholder="Enter Your Message" required></textarea>
+                        </label>
+                        <label for="submit">
+                            <input class="submit" type="submit" value="Submit">
+                        </label>
                     </form>
-                    <span id="msg"></span>
+                       <span id="msg"></span>
                 </div>
             </div>
         </div>
+                    
+                    <!-- Include EmailJS SDK -->
+                    <script type="text/javascript"
+                    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+            </script>
+<script>
+    // Initialize EmailJS with your User ID
+    (function(){
+        emailjs.init("JJ-uBCVx_Hyt6kGWd");  // Replace with your EmailJS User ID
+    })();
+
+    // Form Submission Handling
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting the traditional way
+        
+        // Get form values
+        const email = document.querySelector('.email-input').value;
+        const topic = document.querySelector('.topic-input').value;
+        const message = document.querySelector('.message-input').value;
+
+        // Create template parameters to pass to EmailJS
+        const templateParams = {
+            from_email: email,
+            topic: topic,
+            message: message
+        };
+
+        // Send the email using EmailJS
+        emailjs.send('service_tlp4gwn', 'template_i45pb0n', templateParams)
+            .then(function(response) {
+                alert('Message sent successfully!');
+            }, function(error) {
+                alert('Error: ' + JSON.stringify(error));
+            });
+    });
+</script>
+                 
         <footer id="footer" data-aos="fade-up" data-aos-duration="1500">
             <div class="footer-content">
                 <h1 class="text-center">LETS GET CONNECTED</h1>
