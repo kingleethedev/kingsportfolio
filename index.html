@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>KINGTHEDEV | Portfolio</title>
     
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -31,12 +31,13 @@
         #scrub-video { position: absolute; width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) brightness(0.3); }
 
         .hero-text { position: relative; z-index: 10; text-align: center; }
-        .hero-text h1 { font-size: clamp(3rem, 10vw, 8rem); font-weight: 900; letter-spacing: -3px; }
+        .hero-text h1 { font-size: clamp(2.5rem, 10vw, 8rem); font-weight: 900; letter-spacing: -3px; }
         .hero-text span { color: var(--blue); }
+        .hero-text p { font-family: 'JetBrains Mono', monospace; color: var(--blue); letter-spacing: 2px; font-size: clamp(0.7rem, 3vw, 1rem); }
 
         /* --- Navigation --- */
         .navbar { 
-            position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; 
+            position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center;
             padding: 25px 9%; background: rgba(31, 36, 45, 0.95); z-index: 100; 
             border-bottom: 1px solid var(--dark-grey); opacity: 0; visibility: hidden; transition: 0.5s;
         }
@@ -45,6 +46,15 @@
         .navbar ul { display: flex; gap: 30px; }
         .navbar ul li a { font-size: 18px; font-weight: 500; color: var(--white); transition: 0.3s; }
         .navbar ul li a:hover { color: var(--blue); }
+        
+        /* Mobile menu button */
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--white);
+            z-index: 101;
+        }
 
         /* --- Content Sections --- */
         #main-site-content { position: relative; z-index: 20; background: var(--bg-color); }
@@ -52,20 +62,48 @@
 
         /* --- Home & Typewriter --- */
         .home { display: flex; align-items: center; gap: 50px; min-height: 100vh; flex-wrap: wrap; }
-        .home-info { flex: 1; min-width: 300px; }
-        .home-info h1 { font-size: 48px; font-weight: 700; }
+        .home-info { flex: 1; min-width: 280px; }
+        .home-info h1 { font-size: clamp(2rem, 6vw, 48px); font-weight: 700; }
         
-        .home-info h2 { font-size: 32px; margin-top: 10px; height: 50px; position: relative; }
-        .home-info h2 span {
-            position: absolute; color: transparent; -webkit-text-stroke: .7px var(--blue);
-            animation: display-text 16s linear infinite; animation-delay: calc(-4s * var(--i));
+        /* TYPEWRITER - FIXED FOR MOBILE & DESKTOP */
+        .typewriter-wrapper {
+            margin-top: 10px;
+            min-height: 70px;
         }
-        @keyframes display-text { 25%, 100% { display: none; } }
-        .home-info h2 span::before {
-            content: attr(data-text); position: absolute; width: 0; border-right: 2px solid var(--blue);
-            color: var(--blue); white-space: nowrap; overflow: hidden; animation: fill-text 4s linear infinite;
+        .home-info h2 {
+            font-size: clamp(1.2rem, 4vw, 32px);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
         }
-        @keyframes fill-text { 10%, 100% { width: 0; } 70%, 90% { width: 100%; } }
+        .works-on-text {
+            font-weight: 600;
+            color: #ababab;
+        }
+        .typewriter-text {
+            color: var(--blue);
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            min-width: 180px;
+        }
+        .typewriter-text span {
+            display: inline-block;
+        }
+        .typewriter-text .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background-color: var(--blue);
+            margin-left: 4px;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
 
         .btn { 
             display: inline-block; padding: 12px 35px; background: var(--blue); border-radius: 40px; 
@@ -75,22 +113,22 @@
         .btn:hover { background: transparent; color: var(--blue); box-shadow: none; }
 
         .home-img { flex: 1; display: flex; justify-content: center; }
-        .img-box { width: 320px; height: 320px; border-radius: 50%; border: 4px solid var(--blue); overflow: hidden; }
+        .img-box { width: clamp(200px, 60vw, 320px); height: clamp(200px, 60vw, 320px); border-radius: 50%; border: 4px solid var(--blue); overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
 
         /* --- About Tabs --- */
-        .sub-title { font-size: 50px; font-weight: 700; margin-bottom: 20px; }
-        .tab-titles { display: flex; margin: 20px 0 40px; gap: 40px; border-bottom: 1px solid var(--dark-grey); }
+        .sub-title { font-size: clamp(2rem, 6vw, 50px); font-weight: 700; margin-bottom: 20px; }
+        .tab-titles { display: flex; margin: 20px 0 40px; gap: 40px; border-bottom: 1px solid var(--dark-grey); flex-wrap: wrap; }
         .tab-links { font-size: 18px; cursor: pointer; color: #ababab; position: relative; padding-bottom: 10px; }
         .tab-links.active-link { color: var(--white); }
         .tab-links.active-link::after { content: ''; width: 60%; height: 3px; background: var(--blue); position: absolute; bottom: -1px; left: 0; }
         .tab-contents { display: none; animation: fadeIn 0.5s; }
         .tab-contents.active-tab { display: block; }
         .tab-contents ul li { margin: 15px 0; color: #ababab; }
-        .tab-contents span { color: var(--blue); font-weight: 700; display: block; }
+        .tab-contents ul li span { color: var(--blue); font-weight: 700; display: block; }
 
         /* --- Projects Grid --- */
-        .facilities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .facilities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
         .facilities-col { background: #262b35; border-radius: 10px; padding: 25px; transition: 0.5s; border: 1px solid transparent; }
         .facilities-col:hover { transform: translateY(-10px); border-color: var(--blue); }
         .facilities-col img { width: 100%; border-radius: 8px; margin-bottom: 15px; }
@@ -98,23 +136,133 @@
 
         /* --- Contact --- */
         .contact-container { display: flex; gap: 50px; flex-wrap: wrap; }
-        .contact-left { flex: 1; min-width: 300px; }
-        .contact-right { flex: 1.5; min-width: 300px; }
+        .contact-left { flex: 1; min-width: 250px; }
+        .contact-right { flex: 1.5; min-width: 250px; }
         form input, form textarea { width: 100%; padding: 15px; background: #262626; border: none; margin-bottom: 15px; color: white; border-radius: 6px; outline: none; }
-        .submit-btn { background: var(--blue); border: none; padding: 15px 40px; border-radius: 6px; cursor: pointer; color: white; font-weight: 700; transition: 0.3s; }
+        .submit-btn { background: var(--blue); border: none; padding: 15px 40px; border-radius: 6px; cursor: pointer; color: white; font-weight: 700; transition: 0.3s; width: auto; }
         .submit-btn:hover { filter: brightness(1.2); }
 
         footer { text-align: center; padding: 60px 9%; border-top: 1px solid var(--dark-grey); }
-        .footer-icons { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
+        .footer-icons { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
         .footer-icons a { font-size: 24px; color: var(--blue); transition: 0.3s; }
         .footer-icons a:hover { transform: translateY(-5px); color: var(--white); }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* --- RESPONSIVE STYLES --- */
+        @media (max-width: 992px) {
+            .navbar { padding: 20px 5%; }
+            section { padding: 80px 5%; }
+        }
+
         @media (max-width: 768px) {
-            .home { flex-direction: column; text-align: center; }
-            .navbar ul { display: none; }
-            .sub-title { font-size: 35px; }
+            .navbar { padding: 18px 5%; }
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(31, 36, 45, 0.98);
+                flex-direction: column;
+                gap: 0;
+                padding: 20px 0;
+                text-align: center;
+                border-bottom: 1px solid var(--blue);
+                z-index: 99;
+            }
+            .navbar ul.active {
+                display: flex;
+            }
+            .navbar ul li {
+                margin: 12px 0;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            
+            .home {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .home-info h2 {
+                justify-content: center;
+            }
+            
+            .typewriter-text {
+                min-width: 160px;
+            }
+            
+            .btn-sci {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .sci {
+                margin-left: 0 !important;
+                justify-content: center;
+            }
+            
+            .tab-titles {
+                justify-content: center;
+                gap: 25px;
+            }
+            
+            .sub-title {
+                text-align: center;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .contact-left {
+                text-align: center;
+            }
+            
+            .contact-left p {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 550px) {
+            .home-info h2 {
+                font-size: 18px;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+            }
+            .typewriter-text {
+                min-width: 140px;
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            section {
+                padding: 60px 5%;
+            }
+            
+            .navbar .logo {
+                font-size: 20px;
+            }
+            
+            .btn {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+            
+            .tab-links {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -135,7 +283,10 @@
     <div id="main-site-content">
         <nav class="navbar" id="navbar">
             <a href="#" class="logo">KINGTHEDEV</a>
-            <ul>
+            <div class="menu-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+            <ul id="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -145,13 +296,16 @@
 
         <section class="home" id="home">
             <div class="home-info">
-                <h1>KING LEE</h1>
-                <h2>Works on 
-                    <span style="--i:4;" data-text=" Mobile Apps ">Mobile Apps </span>
-                    <span style="--i:3;" data-text=" Machine learning">Machine learning</span>
-                    <span style="--i:2;" data-text=" Web Apps">Web Apps</span>
-                    <span style="--i:1;" data-text=" Data Science">   Data Science</span>
-                </h2>
+                <h1>HI, I'M KING LEE</h1>
+                <div class="typewriter-wrapper">
+                    <h2>
+                        <span class="works-on-text">Works on</span>
+                        <span class="typewriter-text">
+                            <span id="changing-word">Mobile Apps</span>
+                            <span class="cursor"></span>
+                        </span>
+                    </h2>
+                </div>
                 <p>Computer science professional specializing in software development, algorithm design and system optimization for modern digital solutions.</p>
                 <div class="btn-sci">
                     <a href="images/my cv.pdf" class="btn">Download CV</a>
@@ -246,6 +400,7 @@
     </div>
 
     <script>
+        // ========== VIDEO LOGIC - COMPLETELY PRESERVED ==========
         $(document).ready(function() {
             gsap.registerPlugin(ScrollTrigger);
             const video = document.querySelector("#scrub-video");
@@ -306,84 +461,110 @@
             });
         });
 
+        // ========== TYPEWRITER EFFECT - WORKS ON ALL DEVICES ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            const words = ["Mobile Apps", "Machine learning", "Web Apps", "Data Science"];
+            const changingWordElement = document.getElementById('changing-word');
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let currentText = '';
+            
+            function typeEffect() {
+                const currentWord = words[wordIndex];
+                
+                if (isDeleting) {
+                    // Deleting characters
+                    currentText = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
+                    changingWordElement.textContent = currentText;
+                    
+                    if (charIndex === 0) {
+                        isDeleting = false;
+                        wordIndex = (wordIndex + 1) % words.length;
+                        setTimeout(typeEffect, 500);
+                    } else {
+                        setTimeout(typeEffect, 50);
+                    }
+                } else {
+                    // Typing characters
+                    currentText = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
+                    changingWordElement.textContent = currentText;
+                    
+                    if (charIndex === currentWord.length) {
+                        isDeleting = true;
+                        setTimeout(typeEffect, 2000);
+                    } else {
+                        setTimeout(typeEffect, 100);
+                    }
+                }
+            }
+            
+            // Start the typewriter
+            setTimeout(typeEffect, 500);
+        });
+
+        // ========== ORIGINAL FUNCTIONS ==========
         function opentab(tabname){
             $(".tab-links").removeClass("active-link");
             $(".tab-contents").removeClass("active-tab");
             event.currentTarget.classList.add("active-link");
             $("#" + tabname).addClass("active-tab");
         }
-        // JavaScript for Navbar Toggle
-document.addEventListener("DOMContentLoaded", function () {
-    const navbar = document.querySelector('.navbar');
-    const menuToggle = document.createElement('div');
-    const navLinks = navbar.querySelector('ul');
-
-    // Create a toggle button for the navbar
-    menuToggle.classList.add('menu-toggle');
-    menuToggle.innerHTML = '<i class="bx bx-menu"></i>';
-    navbar.appendChild(menuToggle);
-
-    // Add click event to toggle the menu
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        const icon = menuToggle.querySelector('i');
-        if (navLinks.classList.contains('active')) {
-            icon.classList.replace('bx-menu', 'bx-x');
-        } else {
-            icon.classList.replace('bx-x', 'bx-menu');
-        }
-    });
-
-    // Close the menu when a link is clicked (optional)
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            const icon = menuToggle.querySelector('i');
-            icon.classList.replace('bx-x', 'bx-menu');
+        
+        // Mobile menu toggle
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('#nav-menu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    const icon = menuToggle.querySelector('i');
+                    if (navMenu.classList.contains('active')) {
+                        icon.classList.remove('bx-menu');
+                        icon.classList.add('bx-x');
+                    } else {
+                        icon.classList.remove('bx-x');
+                        icon.classList.add('bx-menu');
+                    }
+                });
+                
+                navMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        const icon = menuToggle.querySelector('i');
+                        if(icon) {
+                            icon.classList.remove('bx-x');
+                            icon.classList.add('bx-menu');
+                        }
+                    });
+                });
+            }
         });
-    });
-});
 
-var tablinks = document.getElementsByClassName("tab-links");
-var tabcontents = document.getElementsByClassName("tab-contents");
+        var tablinks = document.getElementsByClassName("tab-links");
+        var tabcontents = document.getElementsByClassName("tab-contents");
 
-function opentab(tabname){
-    for(tablink of tablinks){
-        tablink.classList.remove("active-link");
-    }
-    for(tabcontent of tabcontents){
-        tabcontent.classList.remove("active-tab");
-    }
-    event.currentTarget.classList.add("active-link");
-    document.getElementById(tabname).classList.add("active-tab");
-}
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzXpMuhH0HdVhPMMX3QEPO8UIlGF2eX7mVhcNSc7oaTRztWVk6mh5qrlBudQ-jN4XN9/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const msg = document.getElementById("msg");
 
-var sidemeu = document.getElementById("sidemenu");
-
-function openmenu(){
-    sidemeu.style.right = "0";
-}
-function closemenu(){
-    sidemeu.style.right = "-200px";
-}
-
-
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzXpMuhH0HdVhPMMX3QEPO8UIlGF2eX7mVhcNSc7oaTRztWVk6mh5qrlBudQ-jN4XN9/exec' // add your own app script link here
-const form = document.forms['submit-to-google-sheet']
-const msg = document.getElementById("msg")
-
-form.addEventListener('submit', e => {
-  e.preventDefault()
-  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-    .then(response => {
-        msg.innerHTML = "Message sent successfully"
-        setTimeout(function(){
-            msg.innerHTML = ""
-        },5000)
-        form.reset()
-    })
-    .catch(error => console.error('Error!', error.message))
-})
+        if(form) {
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                    .then(response => {
+                        msg.innerHTML = "Message sent successfully";
+                        setTimeout(function(){
+                            msg.innerHTML = "";
+                        },5000);
+                        form.reset();
+                    })
+                    .catch(error => console.error('Error!', error.message));
+            });
+        }
     </script>
 </body>
 </html>
